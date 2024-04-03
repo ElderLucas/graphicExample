@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -30,6 +32,11 @@ public class FragmentDatePicker extends Fragment {
     @ViewById(R.id.fragmentContainer)
     LinearLayout datePickerContainer;
 
+    @ViewById(R.id.button)
+    Button myButton;
+
+    CustomDatePicker customDatePicker;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,7 +48,9 @@ public class FragmentDatePicker extends Fragment {
     void initView() {
 
         // Cria o CustomDatePicker programaticamente
-        CustomDatePicker customDatePicker = CustomDatePicker_.build(getContext(),null);
+        customDatePicker = CustomDatePicker_.build(getContext(),null);
+
+
         // Configura as datas mínima e máxima
         Calendar minDate = Calendar.getInstance();
         minDate.set(2020, Calendar.JANUARY, 1);
@@ -53,5 +62,23 @@ public class FragmentDatePicker extends Fragment {
 
         // Adiciona o CustomDatePicker ao container
         datePickerContainer.addView(customDatePicker);
+
+
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar mySelectedDate = customDatePicker.getSelectedDate();
+
+                showToastMessage(mySelectedDate.toString());
+
+
+            }
+        });
+
+    }
+
+
+    private void showToastMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

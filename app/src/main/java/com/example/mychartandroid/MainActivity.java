@@ -1,6 +1,7 @@
 package com.example.mychartandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
@@ -8,11 +9,17 @@ import com.example.mychartandroid.Fragments.FragmentDatePicker;
 import com.example.mychartandroid.Fragments.FragmentDatePicker_;
 import com.example.mychartandroid.Fragments.FragmentEditTextSlider;
 import com.example.mychartandroid.Fragments.FragmentEditTextSlider_;
+import com.example.mychartandroid.Fragments.FragmentInputDataJSON;
+import com.example.mychartandroid.Fragments.FragmentInputDataJSON_;
 import com.example.mychartandroid.Fragments.FragmentMPChart;
 import com.example.mychartandroid.Fragments.FragmentMPChart_;
+import com.example.mychartandroid.Fragments.PieChartFragment;
+import com.example.mychartandroid.Fragments.PieChartFragment_;
+
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -25,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
         // Adiciona o fragmento ao container assim que as views forem criadas
         //showFrag1();
 
-        showDateFragmetn();
+        //showDateFragmetn();
+
+        //showPieGraphic();
+
+        showPieGraphic();
 
 
     }
@@ -53,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-
+    public void showPieGraphic(){
+        PieChartFragment fragmentPieChart = new PieChartFragment_();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragmentPieChart)
+                .commit();
+    }
 
 }
