@@ -11,6 +11,8 @@ import com.example.mychartandroid.Fragments.FragmentEditTextSlider;
 import com.example.mychartandroid.Fragments.FragmentEditTextSlider_;
 import com.example.mychartandroid.Fragments.FragmentInputDataJSON;
 import com.example.mychartandroid.Fragments.FragmentInputDataJSON_;
+import com.example.mychartandroid.Fragments.FragmentLongText;
+import com.example.mychartandroid.Fragments.FragmentLongText_;
 import com.example.mychartandroid.Fragments.FragmentMPChart;
 import com.example.mychartandroid.Fragments.FragmentMPChart_;
 import com.example.mychartandroid.Fragments.PieChartFragment;
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
         //showPieGraphic();
 
-        showPieGraphic();
+        //showPieGraphic();
+
+        ShowLongText();
 
 
     }
@@ -69,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragmentPieChart)
                 .commit();
+    }
+
+
+    public void ShowLongText(){
+
+
+        FragmentLongText fragmentLongText = new FragmentLongText_();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragmentLongText)
+                .commit();
+
     }
 
 }

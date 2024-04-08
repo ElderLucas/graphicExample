@@ -10,5 +10,6 @@
     <color name="pieColor1">#F44336</color>
     <color name="pieColor2">#9C27B0</color>
     <color name="pieColor3">#3F51B5</color>
+    <color name="primary">#273BA6</color>
 
 </resources>
