@@ -1,25 +1,44 @@
-<!-- dialog_date_picker.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/datePickerLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <NumberPicker
-        android:id="@+id/picker_day"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/limitsTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:text="Limites:" />
 
-    <NumberPicker
-        android:id="@+id/picker_month"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:orientation="horizontal">
 
-    <NumberPicker
-        android:id="@+id/picker_year"
-        android:layout_width="0dp"
+        <NumberPicker
+            android:id="@+id/dayPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <NumberPicker
+            android:id="@+id/monthPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <NumberPicker
+            android:id="@+id/yearPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:text="Confirmar" />
+
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.mychartandroid.Component.EditTextSliderComponent;
+
 import com.example.mychartandroid.Component.EditTextSliderComponent_;
 import com.example.mychartandroid.R;
 

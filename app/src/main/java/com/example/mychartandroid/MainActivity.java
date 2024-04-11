@@ -5,15 +5,23 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
+import com.example.mychartandroid.Fragments.FragmentCSVGen;
+import com.example.mychartandroid.Fragments.FragmentCSVGen_;
+import com.example.mychartandroid.Fragments.FragmentCalendar;
+import com.example.mychartandroid.Fragments.FragmentCalendar_;
 import com.example.mychartandroid.Fragments.FragmentDatePicker;
+
 import com.example.mychartandroid.Fragments.FragmentDatePicker_;
 import com.example.mychartandroid.Fragments.FragmentEditTextSlider;
+
 import com.example.mychartandroid.Fragments.FragmentEditTextSlider_;
 import com.example.mychartandroid.Fragments.FragmentInputDataJSON;
-import com.example.mychartandroid.Fragments.FragmentInputDataJSON_;
+
 import com.example.mychartandroid.Fragments.FragmentLongText;
+
 import com.example.mychartandroid.Fragments.FragmentLongText_;
 import com.example.mychartandroid.Fragments.FragmentMPChart;
+
 import com.example.mychartandroid.Fragments.FragmentMPChart_;
 import com.example.mychartandroid.Fragments.PieChartFragment;
 import com.example.mychartandroid.Fragments.PieChartFragment_;
@@ -40,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         //showPieGraphic();
 
-        ShowLongText();
+        //ShowLongText();
+
+        //showCalendarFragmetn();
+
+        showFragmentCSVGen();
 
 
     }
@@ -85,5 +97,23 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
     }
+
+
+    public void showCalendarFragmetn(){
+        FragmentCalendar fragmentCalendarPicker = new FragmentCalendar_();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragmentCalendarPicker)
+                .commit();
+    }
+
+    public void showFragmentCSVGen(){
+        FragmentCSVGen fragment = new FragmentCSVGen_();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+
+
 
 }

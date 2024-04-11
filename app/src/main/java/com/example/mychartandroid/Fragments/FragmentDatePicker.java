@@ -16,7 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.mychartandroid.Component.CustomDatePicker;
-import com.example.mychartandroid.Component.CustomDatePicker_;
+
 import com.example.mychartandroid.R;
 
 import org.androidannotations.annotations.AfterViews;
@@ -48,7 +48,7 @@ public class FragmentDatePicker extends Fragment {
     void initView() {
 
         // Cria o CustomDatePicker programaticamente
-        customDatePicker = CustomDatePicker_.build(getContext(),null);
+        //customDatePicker = CustomDatePicker_.build(getContext(),null);
 
 
         // Configura as datas mínima e máxima

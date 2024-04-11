@@ -11,18 +11,19 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 @EViewGroup(R.layout.dialog_date_picker)
 public class CustomDatePicker extends LinearLayout {
 
-    @ViewById(R.id.picker_day)
+    @ViewById(R.id.dayPicker)
     NumberPicker picker_day;
 
-    @ViewById(R.id.picker_month)
+    @ViewById(R.id.monthPicker)
     NumberPicker picker_month;
 
-    @ViewById(R.id.picker_year)
+    @ViewById(R.id.yearPicker)
     NumberPicker picker_year;
 
     private Calendar minDate = Calendar.getInstance();
@@ -53,16 +54,17 @@ public class CustomDatePicker extends LinearLayout {
 
     private void setupPickers() {
 
+        // Obtendo os nomes dos meses no locale padrão do dispositivo
+        String[] months = new DateFormatSymbols().getMonths();
+
         // Ajuste para garantir que os limites de data sejam respeitados
         picker_year.setMinValue(minDate.get(Calendar.YEAR));
         picker_year.setMaxValue(maxDate.get(Calendar.YEAR));
-
         picker_year.setOnValueChangedListener((picker, oldVal, newVal) -> adjustPickers());
 
         picker_month.setMinValue(0);
         picker_month.setMaxValue(meses.length - 1);
-        picker_month.setDisplayedValues(meses);
-
+        picker_month.setDisplayedValues(months);
 
         picker_month.setOnValueChangedListener((picker, oldVal, newVal) -> adjustPickers());
 
