@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -24,11 +25,11 @@ public class EditTextSliderComponent extends LinearLayout {
     @ViewById
     protected Slider slider;
 
-    private String prefix = "";
-    private String suffix = "";
+    private String prefix = "R$";
+    private String suffix = " BRL";
     private int decimalPlaces = 0;
     private float minValue = 0;
-    private float maxValue = 100;
+    private float maxValue = 500;
     private boolean isProgrammaticChange = false;
     private String lastValidValue = "";
 
@@ -44,8 +45,6 @@ public class EditTextSliderComponent extends LinearLayout {
 
         // Sua configuração inicial aqui, incluindo a definição de um valor inicial para lastValidValue
         lastValidValue = prefix + "0" + suffix; // Ajuste conforme necessário
-
-
         updateEditTextWithSliderValue(slider.getValue());
 
         // Listeners do Slider
@@ -56,6 +55,27 @@ public class EditTextSliderComponent extends LinearLayout {
                 isProgrammaticChange = false;
             }
         });
+
+        editText.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                int position = editText.getOffsetForPosition(event.getX(), event.getY());
+                position = Math.max(position, prefix.length());
+                position = Math.min(position, editText.length() - suffix.length());
+                editText.setSelection(position);
+                return true;
+            }
+            return false;
+        }); 
+
+        slider.addOnChangeListener((slider, value, fromUser) -> {
+            if (fromUser) {
+                isProgrammaticChange = true;
+                updateEditTextWithSliderValue(value);
+                isProgrammaticChange = false;
+            }
+        });
+
+
 
         // Listener para mudanças no texto do EditText
         editText.addTextChangedListener(new TextWatcher() {

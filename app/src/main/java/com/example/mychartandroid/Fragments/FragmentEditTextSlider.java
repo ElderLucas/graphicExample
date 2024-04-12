@@ -5,9 +5,11 @@ import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.mychartandroid.Component.EditTextSlider;
 import com.example.mychartandroid.Component.EditTextSliderComponent;
 
 import com.example.mychartandroid.Component.EditTextSliderComponent_;
+import com.example.mychartandroid.Component.EditTextSlider_;
 import com.example.mychartandroid.R;
 
 import org.androidannotations.annotations.AfterViews;
@@ -19,35 +21,18 @@ public class FragmentEditTextSlider extends Fragment {
 
 
 
+
     @ViewById
     LinearLayout fragmentContainer;
 
     @AfterViews
-    protected void init() {
-        // Aqui você pode instanciar e adicionar seu EditTextSliderComponent programaticamente
-        EditTextSliderComponent customComponent = EditTextSliderComponent_.build(getContext(),null);
-
-        // Configure seu componente conforme necessário
-        customComponent.setPrefix("$");
-        customComponent.setSuffix(" USD");
-        customComponent.setDecimalPlaces(1);
-        customComponent.setMinValue(0);
-        customComponent.setMaxValue(100);
-        //customComponent.updateView();
-
-        // Adiciona o componente ao container da fragment
-        fragmentContainer.addView(customComponent);
-
-        configureComponent(customComponent);
+    void setupEditTextSlider() {
+        EditTextSlider editTextSlider = EditTextSlider_.build(getContext(),null);
+        editTextSlider.setPrefix("$");
+        editTextSlider.setSuffix(" USD");
+        editTextSlider.setDecimalPlaces(2);
+        editTextSlider.setRange(20.0, 30.0, 0.01);
+        fragmentContainer.addView(editTextSlider);
     }
 
-
-    private void configureComponent(EditTextSliderComponent component) {
-        // Configura o componente aqui
-        component.setPrefix("$");
-        component.setSuffix(" USD");
-        component.setDecimalPlaces(2);
-        component.setMinValue(0);
-        component.setMaxValue(100);
-    }
 }

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @AfterViews
     void afterViews() {
         // Adiciona o fragmento ao container assim que as views forem criadas
-        //showFrag1();
+        showEditTextSlider();
 
         //showDateFragmetn();
 
@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
         //showCalendarFragmetn();
 
-        showFragmentCSVGen();
+        //showFragmentCSVGen();
 
 
     }
 
-    public void showFrag1(){
+    public void showEditTextSlider(){
 
         FragmentEditTextSlider fragmento = new FragmentEditTextSlider_();
         getSupportFragmentManager().beginTransaction()
