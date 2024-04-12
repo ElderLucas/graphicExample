@@ -28,10 +28,10 @@ public class FragmentEditTextSlider extends Fragment {
     @AfterViews
     void setupEditTextSlider() {
         EditTextSlider editTextSlider = EditTextSlider_.build(getContext(),null);
-        editTextSlider.setPrefix("$");
-        editTextSlider.setSuffix(" USD");
-        editTextSlider.setDecimalPlaces(2);
-        editTextSlider.setRange(20.0, 30.0, 0.01);
+        editTextSlider.setPrefix("");
+        editTextSlider.setSuffix("%");
+        editTextSlider.setDecimalPlaces(5);
+        editTextSlider.setRange(20.0, 30.0, 0.5);
         fragmentContainer.addView(editTextSlider);
     }
 
