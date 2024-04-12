@@ -111,8 +111,8 @@ public class FragmentCSVGen extends Fragment {
             @Override
             public void onSuccess(String filePath) {
                 // Após salvar o arquivo com sucesso, compartilhe-o
-                //shareOrOpenCsvFile(filePath);
-                showCsvFileOptions(filePath);
+                shareOrOpenCsvFile(filePath);
+                //showCsvFileOptions(filePath);
             }
 
             @Override
@@ -163,9 +163,9 @@ public class FragmentCSVGen extends Fragment {
                 @Override
                 public void onSuccess(String filePath) {
                     // Após salvar o arquivo com sucesso, compartilhe-o
-                    //shareOrOpenCsvFile(filePath);
-
-                    showCsvFileOptions(filePath);
+                    shareOrOpenCsvFile(filePath);
+                    // Chama uma Activity para exibir um Arquivo
+                    //showCsvFileOptions(filePath);
                 }
 
                 @Override
