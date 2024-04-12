@@ -12,4 +12,10 @@
     <color name="pieColor3">#3F51B5</color>
     <color name="primary">#273BA6</color>
 
+    <!-- Cor do cursor do EditText -->
+    <color name="cursor_color">#FF5722</color>
+
+    <!-- Cor da linha do EditText -->
+    <color name="line_color">#3F51B5</color>
+
 </resources>

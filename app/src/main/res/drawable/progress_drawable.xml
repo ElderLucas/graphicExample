@@ -1,0 +1,18 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Track -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="#D3D3D3"/> <!-- Cor da trilha de fundo -->
+            <corners android:radius="4dp"/> <!-- Arredondamento das bordas -->
+        </shape>
+    </item>
+    <!-- Foreground Track -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="#747474"/> <!-- Cor da trilha de progresso -->
+                <corners android:radius="4dp"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>
