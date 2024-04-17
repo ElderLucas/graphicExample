@@ -1,94 +1,101 @@
 package com.example.mychartandroid.Fragments;
 
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
-
-import com.example.mychartandroid.Component.DatePickerViewGroup;
-import com.example.mychartandroid.Component.DatePickerViewGroup_;
-
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Calendar;
-import java.util.Date;
+import android.app.Dialog;
+import android.widget.NumberPicker;
+import android.widget.TextView;
+import android.widget.Button;
 
-@EFragment
+import androidx.fragment.app.DialogFragment;
+
+import com.example.mychartandroid.R;
+
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+
+@EFragment(R.layout.dialog_date_picker)
 public class DatePickerDialogFragment extends DialogFragment {
 
-    private DatePickerViewGroup datePickerViewGroup;
-    private Calendar minDate, maxDate, initialDate;
+    @ViewById
+    protected NumberPicker dayPicker, monthPicker, yearPicker;
 
-    public interface DatePickerDialogListener {
-        void onDateSelected(Calendar date);
+    @ViewById
+    protected TextView dateInfoTextView;
+
+    @ViewById
+    protected Button confirmButton;
+
+    private Calendar minDate, maxDate, currentDate;
+
+    public interface DatePickerCallback {
+        void onDateSelected(Calendar selectedDate);
     }
 
-    private DatePickerDialogListener listener;
+    private DatePickerCallback callback;
 
-    // Método para definir o listener
-    public void setDatePickerDialogListener(DatePickerDialogListener listener) {
-        this.listener = listener;
-    }
-
-
-    // Utilize este método estático para criar novas instâncias do fragmento com argumentos de data
-    public static DatePickerDialogFragment newInstance(Calendar minDate, Calendar maxDate, Calendar initialDate) {
+    public static DatePickerDialogFragment newInstance(Calendar minDate, Calendar maxDate, Calendar currentDate, DatePickerCallback callback) {
         DatePickerDialogFragment fragment = new DatePickerDialogFragment_();
-        Bundle args = new Bundle();
-        args.putSerializable("minDate", minDate);
-        args.putSerializable("maxDate", maxDate);
-        args.putSerializable("initialDate", initialDate);
-        fragment.setArguments(args);
+        fragment.minDate = minDate;
+        fragment.maxDate = maxDate;
+        fragment.currentDate = currentDate;
+        fragment.callback = callback;
         return fragment;
     }
 
-    @AfterInject
-    void afterInject() {
-        // Extrai as datas do Bundle de argumentos e as armazena nas variáveis locais
-        if (getArguments() != null) {
-            minDate = (Calendar) getArguments().getSerializable("minDate");
-            maxDate = (Calendar) getArguments().getSerializable("maxDate");
-            initialDate = (Calendar) getArguments().getSerializable("initialDate");
 
-
-        }
+    @AfterViews
+    protected void setupDialog() {
+        initializePickerValues();
+        setupListeners();
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = new Dialog(getActivity());
+    private void initializePickerValues() {
+        String[] months = new DateFormatSymbols().getMonths();
+        monthPicker.setDisplayedValues(months);
+        monthPicker.setMinValue(1);
+        monthPicker.setMaxValue(12);
+        monthPicker.setValue(currentDate.get(Calendar.MONTH) + 1);
 
-        // Infla o DatePickerViewGroup e configura as datas
-        datePickerViewGroup = DatePickerViewGroup_.build(getContext(),null);
+        yearPicker.setMinValue(minDate.get(Calendar.YEAR));
+        yearPicker.setMaxValue(maxDate.get(Calendar.YEAR));
+        yearPicker.setValue(currentDate.get(Calendar.YEAR));
 
-        if (minDate != null) datePickerViewGroup.setMinimumDate(minDate);
-        if (maxDate != null) datePickerViewGroup.setMaximumDate(maxDate);
-        if (initialDate != null) datePickerViewGroup.setInitialDate(initialDate);
+        updateDays();
+    }
 
-        dialog.setContentView(datePickerViewGroup);
-        dialog.setTitle("Selecione uma Data");
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    private void updateDays() {
+        int month = monthPicker.getValue();
+        int year = yearPicker.getValue();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.YEAR, year);
+        int maxDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        dayPicker.setMinValue(1);
+        dayPicker.setMaxValue(maxDayOfMonth);
+        dayPicker.setValue(Math.min(Math.max(currentDate.get(Calendar.DAY_OF_MONTH), 1), maxDayOfMonth));
+    }
 
-        // Definindo o listener para quando o botão for clicado e a data for selecionada
-        datePickerViewGroup.setOnDateSelectedListener(new DatePickerViewGroup.OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(Calendar date) {
-                if (listener != null) {
-                    listener.onDateSelected(date);
+    private void setupListeners() {
+        monthPicker.setOnValueChangedListener((picker, oldVal, newVal) -> updateDays());
+        yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> updateDays());
+
+        confirmButton.setOnClickListener(v -> {
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(Calendar.YEAR, yearPicker.getValue());
+            selectedDate.set(Calendar.MONTH, monthPicker.getValue() - 1);
+            selectedDate.set(Calendar.DAY_OF_MONTH, dayPicker.getValue());
+
+            if (selectedDate.before(minDate) || selectedDate.after(maxDate)) {
+                dateInfoTextView.setText("Selected date is out of range. Please select another date.");
+            } else {
+                if (callback != null) {
+                    callback.onDateSelected(selectedDate);
                 }
-                // Fechando o diálogo
-                dialog.dismiss();
+                dismiss();
             }
         });
-
-        return dialog;
     }
 }

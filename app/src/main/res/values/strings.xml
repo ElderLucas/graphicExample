@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MyChartAndroid</string>
 
+    <string name="selecionar_data">Selecionar Data</string>
 
     <string-array name="meses">
         <item>Janeiro</item>

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @AfterViews
     void afterViews() {
         // Adiciona o fragmento ao container assim que as views forem criadas
-        showEditTextSlider();
+        //showEditTextSlider();
 
         //showDateFragmetn();
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         //ShowLongText();
 
-        //showCalendarFragmetn();
+        showCalendarFragmetn();
 
         //showFragmentCSVGen();
 

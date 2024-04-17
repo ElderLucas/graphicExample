@@ -11,7 +11,8 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Selecionar Data"
+        android:hint="@string/selecionar_data"
+        android:text="@string/selecionar_data"
         android:elevation="5dp" />
 
 </FrameLayout>
